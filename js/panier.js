@@ -184,6 +184,36 @@ function deleteBtnCart(cart) {
     }
 };
 
+//function used to valid cart
+
+function btnCartFooterWork() {
+    if (document.getElementById('commandBtn')) {//if commandBtn is present 
+        document.getElementById('commandBtn').addEventListener('click', () => {
+            idsAlreadyHere.forEach(function (id) {
+                console.log(idsAlreadyHere.indexOf(id))
+                if ((idsAlreadyHere.indexOf(id)) != 0) {//if more of one article are in cart 
+                    idsString += "," + id;//write a new string with articles 
+                    console.log(idsString)
+                } else {//if only one article is in cart 
+                    idsString += id;//string is only egual to id of article in cart 
+                    console.log(idsString)
+                }
+            })
+            localStorage.setItem("product", idsString)
+            console.log(localStorage.product)
+            var displayForm = document.getElementById("form-cmd");//diplay form, the user can put in his informations 
+            displayForm.classList.remove("d-none");
+        })
+    };
+    //button delete all of products from cart 
+    if (document.getElementById('clean')) {
+        document.getElementById('clean').addEventListener('click', () => {
+            localStorage.clear();
+            window.location.reload();
+        })
+    };
+};
+
 
 
 
@@ -194,3 +224,4 @@ displayProducts(idsArray);
 getTotalPrice(cart);
 addEventButton(idsArray, cart);
 deleteBtnCart(cart);
+btnCartFooterWork();
