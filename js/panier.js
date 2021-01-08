@@ -113,6 +113,21 @@ function displayProducts(idsArray) {
 
 };
 
+//function used to calcul price of each articles in factor of quantity 
+
+function productTotalPrice(i) {
+    for (let u = 0; u < cart.length; u++) {//for each article in cart            
+        if (cart[u].id === i) {//if id in cart is egual at position of object in array
+            console.log(cart[u].quantity)
+            console.log(cart[u].price)
+            cart[u].productTotalPrice = cart[u].quantity * cart[u].price;// calcul
+            document.getElementsByClassName("productTotalPrice")[u].innerHTML = `Total : <b>${cart[u].productTotalPrice},00 €</b>`;
+            break;//stop if condition was valided 
+        };
+    };
+};
+
+
 
                                                                             /*functions calling */
 
