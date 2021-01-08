@@ -127,9 +127,20 @@ function productTotalPrice(i) {
     };
 };
 
+//function used to calcul cart total price
+
+function getTotalPrice(cart) {
+    cart.forEach(function (productCart) {// calcul cart total price with all of article in cart 
+        cartTotalPrice += productCart.quantity * productCart.price;
+        document.getElementById("cart-total-price").innerHTML = `Total du panier : <b>${cartTotalPrice},00 €</b>`;
+        localStorage.setItem("totalPrice", cartTotalPrice);
+    });
+};
+
 
 
                                                                             /*functions calling */
 
 getUtf8();
 displayProducts(idsArray);
+getTotalPrice(cart);
