@@ -137,6 +137,44 @@ function getTotalPrice(cart) {
     });
 };
 
+//function used to delete one product from cart 
+
+function addEventButton(idsArray, cart) {
+    arrayBtns = [...document.getElementsByClassName('btnCart')];// array used to class btn used to delete article 
+    console.log(arrayBtns)
+    arrayBtns.forEach(function (btn) {
+        console.log(arrayBtns.indexOf(btn))
+        btn.addEventListener('click', (event) => {
+            event.preventDefault();//Cancel default action of button 
+            cart.forEach(function (article) {
+                if (article.productId === idsArray[arrayBtns.indexOf(btn)]) {
+                    article.quantity = 0;
+                };
+            });
+            cartTotalPrice = 0;
+            cart.forEach(function (article) {// calcul cart total price 
+                console.log(4)
+                if (article.quantity != 0) {
+                    cartTotalPrice += article.quantity * article.price;
+                    console.log(cartTotalPrice)
+                };
+            });
+            localStorage.removeItem(idsArray[arrayBtns.indexOf(btn)]);//delete article from localStorage 
+            let arrayrandom = [];
+            let idDuProduct = idsArray[arrayBtns.indexOf(btn)];
+            arrayrandom = idsArray.filter(function (id) {
+                return id !== idDuProduct
+            })
+            localStorage.setItem("ids", arrayrandom.join(','));//replace older array by the new without article deleted 
+            let buttonClicked = event.target;
+            buttonClicked.parentElement.parentElement.parentElement.parentElement.remove();// delete div used to display article delete 
+            console.log(idsArray);
+            window.location.reload(false);
+        });
+    })
+};
+
+
 
 
                                                                             /*functions calling */
@@ -144,3 +182,4 @@ function getTotalPrice(cart) {
 getUtf8();
 displayProducts(idsArray);
 getTotalPrice(cart);
+addEventButton(idsArray, cart);
