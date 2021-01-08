@@ -1,15 +1,15 @@
 
-//fonction permettant d'envoyer les informations à l'api
+//function that send data to api with post request
 
 function sendData() {
-    let formData = {};//stock les données du formulaire dans un tableau
+    let formData = {};//create an array tu stock data from form
     formData.lastName = document.getElementById("lastname").value;
     formData.firstName = document.getElementById("firstname").value;
     formData.address = document.getElementById("address").value;
     formData.city = document.getElementById("city").value;
     formData.email = document.getElementById("email").value;
-    let products = localStorage.getItem("product");//récupération du local storage
-    products = products.split(",");//on le transforme en Json
+    let products = localStorage.getItem("product");//get localStorage
+    products = products.split(",");//split element with ,
     let body = JSON.stringify({ "contact": formData, "products": products });
     console.log(body)
     fetch("http://localhost:3000/api/teddies/order", {//methode post
@@ -18,23 +18,23 @@ function sendData() {
             'Content-type': 'application/json'
         },
         body,
-    }).then(response => {//on récupère la réponse de la requête
+    }).then(response => {//get json response
         console.log(response.status);
-        if (response.status != 200 && response.status != 201 && response.status != 204) {//si la réponse n'est pas un status 200
+        if (response.status != 200 && response.status != 201 && response.status != 204) {//if response doesn't 200 
             throw new Error("Not 2xx response")
         }
         return response.json()
     })
-        .then(function (response) {// sinon 
+        .then(function (response) { 
             response = JSON.stringify(response);
-            localStorage.setItem("response", response);//on localstorage la reponse (code de commande retourné par l'api)
+            localStorage.setItem("response", response);// localStorage command is send by api 
             console.log(response)
-            clearCart();//On supprime le panier
-            window.location.href = "validation.html";//on redirige vers la page validation de commande 
+            clearCart();//delete cart
+            window.location.href = "validation.html";//open html page to display commande validation 
         });
 };
 
-//fonction permettan d'ajouter un élément requis lors de la validation de formulaire
+//function use to make input of form required before validation 
 
 function required() {
     var lastname = document.forms["validationForm"]["lastname"];
@@ -44,8 +44,8 @@ function required() {
     var email = document.forms["validationForm"]["email"];
     let classesToAdd = ['border', 'border-danger'];
 
-    if (lastname.value == "") {//ajoute le champ required au formulaire
-        document.getElementById('lastname').classList.add(...classesToAdd);//ajoute les class à la liste de classe déjà exitente  
+    if (lastname.value == "") {//add required to input in form
+        document.getElementById('lastname').classList.add(...classesToAdd);//add class at class already exist 
         document.getElementById('lastNameDiv').innerHTML += `
             <div class="border border-danger w-25 m-auto p-auto">
                 <p class="text-danger m-0">Champ requis</p>
@@ -87,6 +87,18 @@ function required() {
             </div>`;
     }
 };
+
+//function use to delete cart after command valided 
+
+function clearCart() {
+    let ids = localStorage.getItem("ids");
+    let idsArray = ids.split(",");//put id in ids array
+    for (let i = 0; i < idsArray; i++) {
+        localStorage.remove(idsArray[i]);//delete each line of idsArray
+    };
+    localStorage.removeItem("ids");//delete ids
+};
+
 
 
 
