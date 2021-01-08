@@ -174,6 +174,16 @@ function addEventButton(idsArray, cart) {
     })
 };
 
+//function used to delete btns when cart is empty 
+
+function deleteBtnCart(cart) {
+    if (cart.length === 0) {// if cart is empty
+        var cartFooterBtn = document.getElementById("cartFooter");
+        cartFooterBtn.remove();// delete button valid cart and delete cart
+        document.getElementById("cartEmpty").innerHTML += `<p class="text-center marron-clair-color">Votre panier est vide</p>`;//affiche un message 
+    }
+};
+
 
 
 
@@ -183,3 +193,4 @@ getUtf8();
 displayProducts(idsArray);
 getTotalPrice(cart);
 addEventButton(idsArray, cart);
+deleteBtnCart(cart);
