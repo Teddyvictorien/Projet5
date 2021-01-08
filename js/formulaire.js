@@ -34,10 +34,65 @@ function sendData() {
         });
 };
 
+//fonction permettan d'ajouter un élément requis lors de la validation de formulaire
+
+function required() {
+    var lastname = document.forms["validationForm"]["lastname"];
+    var firstname = document.forms["validationForm"]["firstname"];
+    var address = document.forms["validationForm"]["address"];
+    var city = document.forms["validationForm"]["city"];
+    var email = document.forms["validationForm"]["email"];
+    let classesToAdd = ['border', 'border-danger'];
+
+    if (lastname.value == "") {//ajoute le champ required au formulaire
+        document.getElementById('lastname').classList.add(...classesToAdd);//ajoute les class à la liste de classe déjà exitente  
+        document.getElementById('lastNameDiv').innerHTML += `
+            <div class="border border-danger w-25 m-auto p-auto">
+                <p class="text-danger m-0">Champ requis</p>
+            </div>`;
+    }
+    if (firstname.value == "") {
+        document.getElementById('firstname').classList.add(...classesToAdd);
+        document.getElementById('firstNameDiv').innerHTML += `
+            <div class="border border-danger w-25 m-auto p-auto">
+                <p class="text-danger m-0">Champ requis</p>
+            </div>`;
+    }
+    if (address.value == "") {
+        document.getElementById('address').classList.add(...classesToAdd);
+        document.getElementById('addressDiv').innerHTML += `
+            <div class="border border-danger w-25 m-auto p-auto">
+                <p class="text-danger m-0">Champ requis</p>
+            </div>`;
+    }
+    if (city.value == "") {
+        document.getElementById('city').classList.add(...classesToAdd);
+        document.getElementById('cityDiv').innerHTML += `
+            <div class="border border-danger w-25 m-auto p-auto">
+                <p class="text-danger m-0">Champ requis</p>
+            </div>`;
+    }
+    if (email.value == "") {
+        document.getElementById('email').classList.add(...classesToAdd);
+        document.getElementById('emailDiv').innerHTML += `
+            <div class="border border-danger w-25 m-auto p-auto">
+                <p class="text-danger m-0">Champ requis</p>
+            </div>`;
+    }
+    if (email.validity.typeMismatch) {
+        document.getElementById('email').classList.add(...classesToAdd);
+        document.getElementById('emailDiv').innerHTML += `
+            <div class="border border-danger w-25 m-auto p-auto">
+                <p class="text-danger m-0">Adresse mail correcte requise</p>
+            </div>`;
+    }
+};
+
 
 
 var form = document.getElementById("validCartBtn");
 form.addEventListener("click", function (event) {
     event.preventDefault();
+    required();
     sendData();
 });
