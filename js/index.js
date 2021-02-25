@@ -9,13 +9,13 @@ var url = "";
 
 function getUrl() {
     url = document.location.pathname.split("/");//get url and split it in array
-    console.log(url)
+    //console.log(url)
     url.pop();//delete the last element of array (index.html)
-    console.log(url)
+    //console.log(url)
     url.shift();//delete the first element (' ')
-    console.log(url)
+    //console.log(url)
     url = url.join('/');//get the url desired
-    console.log(url)
+    //console.log(url)
 };
 
 //function that display all of articles 
@@ -23,16 +23,13 @@ function getUrl() {
 function getAllArticles(url) {
     fetch('http://localhost:3000/api/teddies')
         .then(response => {
-            console.log(response.status);// display response's status 
+            //console.log(response.status);// display response's status 
             return response.json()
         })
         .then(function (teddies) {//if status = 200
-            console.log("4")
             teddies.forEach(teddy => {
-                console.log("5")
                 let newUrl = new URL(url + '/produit.html?id=' + teddy._id)//creat new unic url for each teddy
-                console.log('6')
-                console.log(teddy._id)
+                //console.log(teddy._id)
                 document.getElementById('article').innerHTML +=//display teddies 
                     `                   
                      <div class=" mx-auto col-sm-8 col-md-6 col-lg-4 text-center mt-5" >

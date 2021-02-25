@@ -1,24 +1,20 @@
 header{
-    position:fixed;
-    z-index:3;
     width:100%;
 }
+main{
+    background-image: url(../images/teddy.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height:100vh;
+    
+}
 .contenue{
-    position: relative;
-    top:55px;
-    z-index: 2;
     width: 60%;
     margin: auto;
     background-color:rgba(255,255,255,0.8);
-    padding-top:50px;
-    padding-bottom:50px;
+    padding-bottom: 50px;
+}
 
-}
-footer{
-    position:relative;
-    z-index:2;
-    margin-top:55px;
-}
 .border-accueil {
     border: 1px #b57c5e solid;
     border-radius:25px;

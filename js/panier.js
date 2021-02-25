@@ -26,7 +26,7 @@ function displayProducts(idsArray) {
         //console.log(idsArray)
         //console.log(localStorage)
         let product = localStorage.getItem(id);//get products stocked in id
-        console.log(product)
+        //console.log(product)
         if (product) {// if an article has add to cart 
             if (idsAlreadyHere.indexOf(id) === -1) {// if id doesn't exist in idsAlreadyHere array
                 console.log("si l'article n'est pas présent")
@@ -71,18 +71,18 @@ function displayProducts(idsArray) {
                 productTotalPrice(productCart.id);
                 document.addEventListener('input', function a() {//when user change quantity of product in cart 
                     cartTotalPrice = 0;
+                    productCart.quantity = document.getElementsByClassName('number')[cart.indexOf(productCart)].value;
                     productTotalPrice(productCart.id);//calcul after changement
                     getTotalPrice(cart);//calcul carft total price after input changement 
                 })
             } else {
                 console.log("si l'aticle est déjà présent")
                 cart.forEach(function (article) {
-                    console.log(cart)
                     if (article.productId === id) {//if object was already in cart 
                         document.getElementsByClassName('number')[cart.indexOf(article)].value++;//increases its value by one 
                         article.quantity++;//increases its 
-                        console.log(article.quantity)
-                        article.productTotalPrice = article.quantity * article.price;//calcul its new price 
+                        //console.log(article.quantity)
+                        article.productTotalPrice = article.quantity * article.price;//calcul new price 
                         document.getElementsByClassName('numberInput')[cart.indexOf(article)].innerHTML =
                             `<label class="my-auto pr-0 mr-2" for="articleNumber">Quantité : </label>
                              <input class="number" type="number" name="articleNumber" min="0" max="100" step="1" value="${article.quantity}">`
@@ -126,9 +126,9 @@ function getTotalPrice(cart) {
 
 function addEventButton(idsArray, cart) {
     arrayBtns = [...document.getElementsByClassName('btnCart')];// array used to class btn used to delete article 
-    console.log(arrayBtns)
+    //console.log(arrayBtns)
     arrayBtns.forEach(function (btn) {
-        console.log(arrayBtns.indexOf(btn))
+        //console.log(arrayBtns.indexOf(btn))
         btn.addEventListener('click', (event) => {
             event.preventDefault();//Cancel default action of button 
             cart.forEach(function (article) {
@@ -138,10 +138,9 @@ function addEventButton(idsArray, cart) {
             });
             cartTotalPrice = 0;
             cart.forEach(function (article) {// calcul cart total price 
-                console.log(4)
                 if (article.quantity != 0) {
                     cartTotalPrice += article.quantity * article.price;
-                    console.log(cartTotalPrice)
+                    //console.log(cartTotalPrice)
                 };
             });
             localStorage.removeItem(idsArray[arrayBtns.indexOf(btn)]);//delete article from localStorage 
@@ -153,7 +152,7 @@ function addEventButton(idsArray, cart) {
             localStorage.setItem("ids", arrayrandom.join(','));//replace older array by the new without article deleted 
             let buttonClicked = event.target;
             buttonClicked.parentElement.parentElement.parentElement.parentElement.remove();// delete div used to display article delete 
-            console.log(idsArray);
+            //console.log(idsArray);
             window.location.reload(false);
         });
     })
@@ -175,17 +174,17 @@ function btnCartFooterWork() {
     if (document.getElementById('commandBtn')) {//if commandBtn is present 
         document.getElementById('commandBtn').addEventListener('click', () => {
             idsAlreadyHere.forEach(function (id) {
-                console.log(idsAlreadyHere.indexOf(id))
+                //console.log(idsAlreadyHere.indexOf(id))
                 if ((idsAlreadyHere.indexOf(id)) != 0) {//if more of one article are in cart 
                     idsString += "," + id;//write a new string with articles 
                     console.log(idsString)
                 } else {//if only one article is in cart 
                     idsString += id;//string is only egual to id of article in cart 
-                    console.log(idsString)
+                    //console.log(idsString)
                 }
             })
             localStorage.setItem("product", idsString)
-            console.log(localStorage.product)
+            //console.log(localStorage.product)
             var displayForm = document.getElementById("form-cmd");//diplay form, the user can put in his informations 
             displayForm.classList.remove("d-none");
         })

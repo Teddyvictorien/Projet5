@@ -28,9 +28,10 @@ function sendData() {
         .then(function (response) { 
             response = JSON.stringify(response);
             localStorage.setItem("response", response);// localStorage command is send by api 
+            responseId = JSON.parse(response).orderId;
             console.log(response)
             clearCart();//delete cart
-            window.location.href = "validation.html";//open html page to display commande validation 
+            window.location.href = `validation.html?id=${responseId}`;//open html page to display commande validation 
         });
 };
 
@@ -43,14 +44,24 @@ function required() {
     var city = document.forms["validationForm"]["city"];
     var email = document.forms["validationForm"]["email"];
     let classesToAdd = ['border', 'border-danger'];
-
+    let lastnameRegex = /^[A-Za-z-'\s]{1,50}$/g;
+    let firstnameRegex = /^[A-Za-z-'\s]{1,25}$/g;
+    let cityRegex = /^[A-Za-z-'\s]{1,75}$/g;
+    
     if (lastname.value == "") {//add required to input in form
         document.getElementById('lastname').classList.add(...classesToAdd);//add class at class already exist 
         document.getElementById('lastNameDiv').innerHTML += `
             <div class="border border-danger w-25 m-auto p-auto">
                 <p class="text-danger m-0">Champ requis</p>
             </div>`;
-    }
+    } else if (!lastnameRegex.test(lastname.value)) {
+        document.getElementById('lastname').classList.add(...classesToAdd);//add class at class already exist 
+        document.getElementById('lastNameDiv').innerHTML += `
+            <div class="border border-danger w-25 m-auto p-auto">
+                <p class="text-danger m-0">Votre nom doit contenir au moins 1 lettre seulement le (- et ') sont autorisés</p>
+            </div>`;
+    };
+
     if (firstname.value == "") {
         document.getElementById('firstname').classList.add(...classesToAdd);
         document.getElementById('firstNameDiv').innerHTML += `
@@ -58,34 +69,53 @@ function required() {
                 <p class="text-danger m-0">Champ requis</p>
             </div>`;
     }
+    else if (!firstnameRegex.test(firstname.value)) {
+        document.getElementById('firstname').classList.add(...classesToAdd);//add class at class already exist 
+        document.getElementById('firstNameDiv').innerHTML += `
+            <div class="border border-danger w-25 m-auto p-auto">
+                <p class="text-danger m-0">Votre prénom doit contenir au moins 1 lettre seulement le (- et ') sont autorisés</p>
+            </div>`;
+    };
+
     if (address.value == "") {
         document.getElementById('address').classList.add(...classesToAdd);
         document.getElementById('addressDiv').innerHTML += `
             <div class="border border-danger w-25 m-auto p-auto">
                 <p class="text-danger m-0">Champ requis</p>
             </div>`;
-    }
+    };
+
     if (city.value == "") {
         document.getElementById('city').classList.add(...classesToAdd);
         document.getElementById('cityDiv').innerHTML += `
             <div class="border border-danger w-25 m-auto p-auto">
                 <p class="text-danger m-0">Champ requis</p>
             </div>`;
-    }
+    };
+
+    if (!cityRegex.test(city.value)) {
+        document.getElementById('city').classList.add(...classesToAdd);//add class at class already exist 
+        document.getElementById('cityDiv').innerHTML += `
+            <div class="border border-danger w-25 m-auto p-auto">
+                <p class="text-danger m-0">Ne peux contenir des caractères autres que - et '</p>
+            </div>`;
+    };
+
     if (email.value == "") {
         document.getElementById('email').classList.add(...classesToAdd);
         document.getElementById('emailDiv').innerHTML += `
             <div class="border border-danger w-25 m-auto p-auto">
                 <p class="text-danger m-0">Champ requis</p>
             </div>`;
-    }
+    };
+
     if (email.validity.typeMismatch) {
         document.getElementById('email').classList.add(...classesToAdd);
         document.getElementById('emailDiv').innerHTML += `
             <div class="border border-danger w-25 m-auto p-auto">
                 <p class="text-danger m-0">Adresse mail correcte requise</p>
             </div>`;
-    }
+    };
 };
 
 //function use to delete cart after command valided 

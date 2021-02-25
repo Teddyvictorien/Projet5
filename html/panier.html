@@ -32,7 +32,6 @@
         </div>
     </header>
     <main>
-        <img id="img-back" src="../images/teddy.jpg" class="w-100" alt="bannière peluche" />
         <div class="container contenue">
             <div class="border-accueil" id="cartEmpty">
                 <h2 class="text-center marron-fonce-color border-bot py-3">Votre panier</h2>
@@ -57,7 +56,7 @@
                 <form name="validationForm" id="formulaire-de-commande">
                     <div id="lastNameDiv" class="d-flex flex-column my-2">
                         <label for="lastname">Nom :</label>
-                        <input class="col-4 mx-auto" type="text" id="lastname" name="lastname" maxlength="5" />
+                        <input class="col-4 mx-auto" type="text" pattern="/[A-Za-z][-\s\w]{1,25}/" id="lastname" name="lastname" required />
                     </div>
                     <div id="firstNameDiv" class="d-flex flex-column my-2">
                         <label for="firstname">Prénom :</label>

@@ -7,7 +7,7 @@ function getArticle() {
 
     fetch('http://localhost:3000/api/teddies/' + myParam)//get request to api url + id of teddy we have recuped sooner
         .then(response => {
-            console.log(response.status);// display response's status 
+            //console.log(response.status);// display response's status 
             return response.json()
         })
         .then(function (product) {
@@ -55,8 +55,8 @@ function getArticle() {
                 idsArray.push(product._id);//add id in idsArray
                 localStorage.setItem("ids", idsArray.join(","));// localStorage string of ids in idsArray 
                 console.log(localStorage)
-                localStorage.setItem(product._id, JSON.stringify(product));// enregistre la chaine de caractère de l'object dans l'id
-                console.log(product)
+                localStorage.setItem(product._id, JSON.stringify(product));// save string of object in id 
+                //console.log(product)
                 alert("Votre article a bien été ajouté au panier")
             })
         })
